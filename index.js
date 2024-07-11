@@ -36,13 +36,9 @@ async function run() {
           res.send(products);
       })
     
-      // app.get('/products/:id([0-9a-fA-F]{24})', async (req, res) => {
       app.get('/products/:id', async (req, res) => {
-        // console.log(req.params.id);
         const id = req.params.id;
-        console.log(id)
-        const query = { _id: new ObjectId(id) }; // Convert the id to ObjectId
-        console.log(query)
+        const query = { _id: new ObjectId(id) };
         const result = await FitnessFactoryCollection.findOne(query);
         res.send(result);
       });
