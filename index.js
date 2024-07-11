@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -35,6 +35,18 @@ async function run() {
           const products = await cursor.toArray();
           res.send(products);
       })
+    
+      // app.get('/products/:id([0-9a-fA-F]{24})', async (req, res) => {
+      app.get('/products/:id', async (req, res) => {
+        // console.log(req.params.id);
+        const id = req.params.id;
+        console.log(id)
+        const query = { _id: new ObjectId(id) }; // Convert the id to ObjectId
+        console.log(query)
+        const result = await FitnessFactoryCollection.findOne(query);
+        res.send(result);
+      });
+
       
 
   } finally {
